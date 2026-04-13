@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Registration Page</h1>
+    <form onsubmit="save(event)">
+        <input name="email" type="text" placeholder="Email">
+        <input name="name" type="text" placeholder="Name">
+        <input name="pwd" type="text" placeholder="Password">
+        <button>Submit</button>
+    </form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        let email = document.querySelectorAll("input")[0]
+        let name = document.querySelectorAll("input")[1]
+        let pwd = document.querySelectorAll("input")[2]
+
+        async function save(e){
+            e.preventDefault()
+            email = email.value
+            name = name.value
+            pwd = pwd.value
+            console.log(email)
+            console.log(name)
+            console.log(pwd)
+
+            let d = await axios.post('/register',{name,email,pwd})
+            console.log(d)
+            if(d.data.success){
+                alert("successfully created")
+            }else{
+                alert(d.data.msg)
+            }
+        }
+
+    </script>
+</body>
+</html>
