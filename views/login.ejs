@@ -7,10 +7,33 @@
 </head>
 <body>
     <h1>Login Page</h1>
-    <form action="">
+    <form onsubmit="LoginDetails(event)">
         <input name="email" type="text" placeholder="Email">
         <input name="pwd" type="text" placeholder="Password">
         <button>Submit</button>
     </form>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        let email = document.querySelectorAll('input')[0]
+        let pwd = document.querySelectorAll('input')[1]
+        
+        async function LoginDetails(e){
+            e.preventDefault()
+            email= email.value
+            pwd= pwd.value
+            let d = await axios.post('/login',{email,pwd})
+            console.log(d.data)
+            if(d.data.success){
+                alert(d.data.msg)
+                localStorage.setItem("token",d.data.token)
+            }else{
+                alert(d.data.msg)
+                window.location.href='/register'
+            }
+           
+        }
+    </script>
 </body>
 </html>

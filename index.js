@@ -1,5 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 let app = express();
 app.set("view engine", "ejs");
 
@@ -43,9 +44,38 @@ app.post("/register", (req, res) => {
     });
   });
 });
+
+// login Route
+app.get("/login", (req, res) => res.render("login"));
+app.post("/login", async (req, res) => {
+  const { email, pwd } = req.body;
+  let d = userData.find((i) => i.email == email);
+
+  if (d == undefined) {
+    return res.json({
+      msg: "User is not exist",
+      success: false,
+    });
+  }
+
+  let isMatch = await bcrypt.compare(pwd, d.pwd);
+  if (!isMatch) {
+    return res.json({
+      msg: "invalid password",
+      success: false,
+    });
+  }
+  let name = d.name;
+  let token = jwt.sign({ name, email }, "codeware");
+  console.log(token);
+  res.json({
+    msg: "Welcome to my world",
+    success: true,
+    token
+  });
+});
+
 app.listen(8000, () => console.log("running"));
 
-
-
-// 
+//
 // register -> data -> bcrypt

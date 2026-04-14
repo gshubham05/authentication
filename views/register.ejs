@@ -35,8 +35,10 @@
             console.log(d)
             if(d.data.success){
                 alert("successfully created")
+                window.location.href = '/login'
             }else{
                 alert(d.data.msg)
+                window.location.href = '/register'
             }
         }
 
