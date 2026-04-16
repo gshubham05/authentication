@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { auth } from "./middleware/auth.js";
 let app = express();
 app.set("view engine", "ejs");
 
@@ -71,11 +72,14 @@ app.post("/login", async (req, res) => {
   res.json({
     msg: "Welcome to my world",
     success: true,
-    token
+    token,
   });
 });
 
-app.listen(8000, () => console.log("running"));
+// dashboard
+app.get("/dashboard", auth, (req, res) => {
+  console.log(req.user);
+  res.render("dashboard");
+});
 
-//
-// register -> data -> bcrypt
+app.listen(8000, () => console.log("running"));

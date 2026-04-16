@@ -7,5 +7,29 @@
 </head>
 <body>
     <h1>Dashboard</h1>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let token = localStorage.getItem("token")
+        console.log(token)
+
+        function Auth(){
+            let token1 = localStorage.getItem("token")
+            console.log("auth token : ",token1)
+            if(!token){
+                console.log("nahi hain ")
+                alert("token has expired")
+                window.location.href = "/login"
+            }
+        }
+
+        async function Dashboard(){
+            let d = await axios.get('/dashboard',{ headers:{token :"1234"}})
+           
+            console.log(d)
+
+        }
+        Dashboard()
+        Auth()
+    </script>
 </body>
 </html>

@@ -28,6 +28,7 @@
             if(d.data.success){
                 alert(d.data.msg)
                 localStorage.setItem("token",d.data.token)
+                window.location.href ='/dashboard'
             }else{
                 alert(d.data.msg)
                 window.location.href='/register'
@@ -37,3 +38,6 @@
     </script>
 </body>
 </html>
+
+
+<!-- jab hum login -> dashboard -> token(authorized) -->
